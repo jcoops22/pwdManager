@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Pwd Manager</title>
+  <link rel="stylesheet" type="text/css" href="main.css">
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <!-- fonts -->
+  <link href="https://fonts.googleapis.com/css?family=B612+Mono&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Rubik+Mono+One&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Orbitron|Press+Start+2P&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+  <div class="container">
+    <!-- themes button -->
+    <button class="themes">Themes</button>
+    <h1> <span>The </span>Pesky Passwords Proprietor <span class="icon"><span id="spanP">P</span><span id="span3">3</span></span>
+    </h1>
+    <!-- wrapper for entries to display -->
+    <div class="wrapper">
+      <div class="inputDiv">
+        <input type="text" name="search" placeholder="Search by keyword, username, password, or website!">
+      </div>
+      <div class="btnDiv">
+        <button class="searchbtn">Search</button>
+        <button class="add">Add</button>
+        <!-- show all button -->
+        <!-- <a href="http://localhost:4000/api"><button class="all">Show All</button></a>	 -->
+        <button class="show">Show All</button>
+        <button class="hide">Hide All</button>
+      </div>
+    </div>
+    <!-- modal for adding entries -->
+    <div class="modalWrapper">
+      <div class="modal">
+        <h3 class="modalh3"></h3>
+        <input class="modalUsername" type="text" name="username" placeholder="enter Username" required="true">
+        <label>Username</label>
+        <input class="modalPwd" type="text" name="password" placeholder="enter Password" required="true">
+        <label>Password</label>
+        <input class="modalWeb" type="text" name="
+						website" placeholder="enter Webstie">
+        <label>Website</label>
+        <input class="modalKey" type="text" name="keyword" placeholder="enter any keywords">
+        <label>Keywords</label>
+        <input class="modalId" disabled="true" hidden="true">
+        <label hidden="true">Database ID</label>
+        <div class="modalButtons">
+          <button class="modalSubmit">Submit</button>
+          <button class="modalCancel">Cancel</button>
+        </div>
+      </div>
+    </div>
+    <!-- edit modal -->
+    <div class="editWrapper">
+      <div class="editModal">
+        <label>Username:<label><input id="editUsr" type="text" placeholder="enter a username">
+				<label>Website:<label><input id="editWeb" type="text" placeholder="enter a website">
+				<label>Password:<label><input id="editPwd" type="text" placeholder="enter a password">
+				<label>Keywords:<label><input id="editKey" type="text" placeholder="enter keywords">
+				<label>Interal ID:<label><input type="text" id="editId" disabled="true">
+				<button class="submitEdit">Submit</button>
+				<button class="cancelEdit">Cancel</button>
+			</div>
+		</div>
+		<!-- delete modal -->
+			<div class="deleteModal">
+				<p>Are you sure you want to delete <span id="deleteId"></span>?</p>
+				<button class="deleteYes">Yes</button>
+				<button class="deleteNo">No</button>
+			</div>
+	</div>
+	<footer>
+		<div>
+			<h6>Created By Jonathan Cooper</h6>
+		</div>
+	</footer>
+	<script type="text/javascript" src="app.js"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>
