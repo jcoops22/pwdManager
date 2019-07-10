@@ -134,12 +134,10 @@ function addClickEventEdit(className) {
                 pwd: editPwd.value,
                 keyword: editKey.value
               };
-              console.log(val);
 // put changes to the specified id
               axios
                 .put(url, val)
                 .then(() => {
-                  console.log(`You updated the entry for ${innerUsr}`);
                   node.item(i).style.display = "inline-block";
                   editWrapper.style.display = "none";
                   editWrapper.classList.remove("animateIn");
@@ -176,6 +174,22 @@ function addClickEventEdit(className) {
   }
 }
 // end click event to the edit button function
+// add click Event function
+function addClickEventNewWrapper(){
+  let newWrapperDiv = document.getElementsByClassName("newWrapper");
+  for(var i = 0; i < newWrapperDiv.length; i++){
+    newWrapperDiv[i].addEventListener('click',()=>{
+      console.log(newWrapperDiv.item(i));
+      // if(newWrapper[i].classList == "viewing"){
+      //   newWrapper[i].classList.remove("viewing");
+      // } else {
+      //   newWrapper[i].classList.add("viewing");  
+      //   console.log("is viewing");
+      // }
+    })
+  }
+}
+// end add click event function
 // validation check function
 function validationCheck(text) {
   // check to see if there is a value to search for and alert some text
@@ -234,7 +248,7 @@ function displayAll() {
       res.data.forEach(entry => {
         // display results
         let div = `<div class="newWrapper">
-        			<span class="divHead">${entry.keyword}</span>
+        			<span class="divHead">${entry.keyword} <span class=divHeadSpan>(click to view)</span></span>
         			<div class=new>
         				<div class="labels">
         					<h4>Username</h4>
@@ -244,14 +258,14 @@ function displayAll() {
         				</div>
         				<div class="data">
         					<p class=userh2>${entry.username}</p>
-							<p class=website>${entry.website}</p>
+							<p class=website><a href=${entry.website}>${entry.website}</a></p>
 							<p class=pwd>${entry.pwd}</p>
 							<p class=keyword>${entry.keyword}</p>
 							<p class=_id hidden="true">${entry._id}</p>
         				</div>
   					</div>
-  					<button class="edit">Edit</button>
-  					<button class="delete">Delete</button>
+  					<span class="edit"><i class="material-icons md-55">edit</i></span>
+  					<span class="delete"><i class="material-icons md-55">delete</i></span>
   				  </div>`;
         wrapper.insertAdjacentHTML("beforeend", div);
       });
@@ -262,7 +276,7 @@ function displayAll() {
     });
   // get node list and addEventListeners to each
   setTimeout(() => {
-    // addClickEvent('newWrapper');
+    addClickEventNewWrapper();
     addClickEventEdit("edit");
     addClickEventDelete("delete");
   }, 100);
@@ -322,10 +336,13 @@ function displayMatch(query) {
 
 // input "button"
 input.addEventListener("keypress", e => {
-  divDelete(".new");
+  console.log("keypress is working");
+  displayMatch(input);
+  divDelete(".newWrapper");
   if (e.which == 13) {
     validationCheck("You must enter a value to search for.");
     displayMatch(input);
+    
   }
 });
 // Search button

@@ -87,25 +87,29 @@ h1 span {
 	filter: blur(0);
 }
 .newWrapper .edit {
-	visibility: hidden;
-	opacity: 0;
+	opacity: 1;
+	transition-duration: .7s;
 }
 .newWrapper:hover .edit {
-	visibility: visible;
 	cursor: pointer;
-	opacity: 1;
-	transition-duration: 1s;
+	opacity: .4;
 }
 .newWrapper:hover .divHead {
 	visibility: hidden;
 	opacity: 0;
 	padding: 0;
 }
+.viewing {
+	transform: scale(1.4);
+}
 .divHead {
 	/*margin: 0;*/
 	transition-duration: 1s;
 	margin-top: -38px;
 	padding: 0;
+}
+.divHeadSpan {
+	font-size: 13px;
 }
 .new {
 	display: flex;
@@ -122,7 +126,7 @@ h1 span {
 	width: 50px;
 	position: relative;
 	top: -80px;
-	left: 40%;
+	left: 36%;
 }
 .edit:hover .new {
 	opacity: .2;
@@ -156,6 +160,34 @@ h1 span {
 }
 .editModal label {
 	display: inline;
+}
+
+.newWrapper .delete {
+	opacity: 1;
+	transition-duration: .7s;
+}
+.newWrapper:hover .delete {
+	cursor: pointer;
+	opacity: .4;
+}
+.delete {
+	width: 55px;
+	position: relative;
+	top: -80px;
+	left: 44%;
+	background-color: transparent;
+	border: none;
+}
+.deleteModal {
+	display: none;
+	background-color: blue;
+}
+footer {
+text-align: center;
+margin-top: 80px;
+}
+.material-icons.md-55 {
+	font-size: 55px;
 }
 									/*animations*/
 .animateOut {
@@ -211,30 +243,6 @@ h1 span {
 		opacity: 1;
 		border-radius: 2px;
 	}
-}
-.newWrapper .delete {
-	visibility: hidden;
-	opacity: 0;
-}
-.newWrapper:hover .delete {
-	visibility: visible;
-	cursor: pointer;
-	opacity: 1;
-	transition-duration: 1s;
-}
-.delete {
-	width: 55px;
-	position: relative;
-	top: -80px;
-	left: 44%;
-}
-.deleteModal {
-	display: none;
-	background-color: blue;
-}
-footer {
-text-align: center;
-margin-top: 80px;
 }
 .modalWrapper {
 	position: fixed;
