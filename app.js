@@ -1,41 +1,41 @@
 // pwd manager js
 // DOM Classes
-let wrapper = document.querySelector(".wrapper");
-let newDiv = document.getElementsByClassName("new");
-let cancelEdit = document.querySelector(".cancelEdit");
-let newWrapper = document.getElementsByClassName("newWrapper");
+const wrapper = document.querySelector(".wrapper");
+const newDiv = document.getElementsByClassName("new");
+const cancelEdit = document.querySelector(".cancelEdit");
+const newWrapper = document.getElementsByClassName("newWrapper");
 // Add/Edit Modal
-let modal = document.querySelector(".modal");
-let modInputs = document.querySelectorAll(".modalWrapper input");
-let modalWrapper = document.querySelector(".modalWrapper");
-let modalUsername = document.querySelector(".modalUsername");
-let modalWeb = document.querySelector(".modalWeb");
-let modalPwd = document.querySelector(".modalPwd");
-let modalKey = document.querySelector(".modalKey");
-let modalId = document.querySelector(".modalId");
-let modalh3 = document.querySelector(".modalh3");
-let dupModal = document.querySelector(".duplicateModal");
-let editWrapper = document.querySelector(".editWrapper");
-let submitEdit = document.querySelector(".submitEdit");
+const modal = document.querySelector(".modal");
+const modInputs = document.querySelectorAll(".modalWrapper input");
+const modalWrapper = document.querySelector(".modalWrapper");
+const modalUsername = document.querySelector(".modalUsername");
+const modalWeb = document.querySelector(".modalWeb");
+const modalPwd = document.querySelector(".modalPwd");
+const modalKey = document.querySelector(".modalKey");
+const modalId = document.querySelector(".modalId");
+const modalh3 = document.querySelector(".modalh3");
+const dupModal = document.querySelector(".duplicateModal");
+const editWrapper = document.querySelector(".editWrapper");
+const submitEdit = document.querySelector(".submitEdit");
 // Edit Inputs
-let editUsr = document.querySelector("#editUsr");
-let editWeb = document.querySelector("#editWeb");
-let editPwd = document.querySelector("#editPwd");
-let editKey = document.querySelector("#editKey");
+const editUsr = document.querySelector("#editUsr");
+const editWeb = document.querySelector("#editWeb");
+const editPwd = document.querySelector("#editPwd");
+const editKey = document.querySelector("#editKey");
 // Delete
-let deleteModal = document.querySelector(".deleteModal");
+const deleteModal = document.querySelector(".deleteModal");
 // Buttons
-let btn = document.querySelector(".searchbtn");
-let input = document.querySelector("input");
-let remove = document.querySelector(".remove");
-let add = document.querySelector(".add");
-let show = document.querySelector(".show");
-let hide = document.querySelector(".hide");
-let edit = document.querySelector(".edit");
-let deletebtn = document.querySelector(".delete");
-let cancel = document.querySelector(".modalCancel");
-let themes = document.querySelector(".themes");
-let submit = document.querySelector(".modalSubmit");
+const btn = document.querySelector(".searchbtn");
+const input = document.querySelector("input");
+const remove = document.querySelector(".remove");
+const add = document.querySelector(".add");
+const show = document.querySelector(".show");
+const hide = document.querySelector(".hide");
+const edit = document.querySelector(".edit");
+const deletebtn = document.querySelector(".delete");
+const cancel = document.querySelector(".modalCancel");
+const themes = document.querySelector(".themes");
+const submit = document.querySelector(".modalSubmit");
 
 
 												// functions
@@ -283,6 +283,7 @@ function displayMatch(query) {
         // check for the input to match database entry
         if (checkValue(query, entry)) {
           let div = `<div class="newWrapper">
+          <span class="divHead">${entry.keyword}</span>
         			<div class=new>
         				<div class="labels">
         					<h4>Username</h4>
