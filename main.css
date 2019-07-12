@@ -6,10 +6,10 @@ body {
 	background-color: #ddd;
 	/*height: 100vh;*/
 	margin: 0;
-	transition-duration: 2s;
+	/*transition-duration: 2s;*/
 }
-.container {
-	/*height: 100vh;*/
+.opacity {
+	opacity: .3;
 }
 h1 {
 	display: flex;
@@ -22,6 +22,9 @@ h1 {
 }
 h1 span {
 	font-size: 20px;
+}
+h4 {
+	text-align: center;
 }
 #spanP {
 	font-size: 30px;
@@ -41,6 +44,13 @@ h1 span {
 }
 .hide {
 	margin-bottom: 25px;	
+}
+.hidden {
+	visibility: hidden;
+	opacity: 0;
+}
+.iconWrapper {
+	transition-duration: .5s;
 }
 .wrapper {
 	display: flex;
@@ -72,39 +82,47 @@ h1 span {
 	width: 28vw;
 }
 .newWrapper {
-	border: 1px solid black;
-	margin: 40px 0;
+	border: 3px solid black;
+	margin: 60px 0;
 	padding: 0px;
-	transition-duration: .5s;
+	border-radius: 15px;
 	background-color: lightgrey;
 }
 .newWrapper:hover {
 	background-color: grey;
 }
+.newWrapper:hover .material-icons {
+	background-color: grey;
+}
 .newWrapper:hover .new {
 	background-color: grey;
-	transition-duration: 1s;
-	filter: blur(0);
+	transition-duration: .5s;
+	/*filter: blur(0);*/
 }
 .newWrapper .edit {
-	opacity: 1;
-	transition-duration: .7s;
+	opacity: .2;
+	transition-duration: .5s;
 }
 .newWrapper:hover .edit {
 	cursor: pointer;
-	opacity: .4;
+	opacity: 1;
 }
 .newWrapper:hover .divHead {
 	visibility: hidden;
 	opacity: 0;
 	padding: 0;
+	transition-duration: .5s;
+}
+.pwd {
+	background-color: grey;
+	color: grey;
 }
 .viewing {
-	transform: scale(1.4);
+	transform: scale(1.3);
 }
 .divHead {
-	/*margin: 0;*/
-	transition-duration: 1s;
+	margin-left: 12px;
+	transition-duration: .5s;
 	margin-top: -38px;
 	padding: 0;
 }
@@ -127,9 +145,7 @@ h1 span {
 	position: relative;
 	top: -80px;
 	left: 36%;
-}
-.edit:hover .new {
-	opacity: .2;
+	transition-duration: .5s;
 }
 .editWrapper {
 	display: none;
@@ -141,6 +157,7 @@ h1 span {
 	position: absolute;
 	left: 33.5vw;
 	width: auto;
+	border: 1px solid black;
 }
 .editWrapper input {
 	width: 27vw;
@@ -163,12 +180,12 @@ h1 span {
 }
 
 .newWrapper .delete {
-	opacity: 1;
-	transition-duration: .7s;
+	opacity: .2;
+	transition-duration: .5s;
 }
 .newWrapper:hover .delete {
 	cursor: pointer;
-	opacity: .4;
+	opacity: 1;
 }
 .delete {
 	width: 55px;
@@ -177,10 +194,32 @@ h1 span {
 	left: 44%;
 	background-color: transparent;
 	border: none;
+	transition-duration: .5s;
 }
 .deleteModal {
 	display: none;
 	background-color: blue;
+}
+.quickLook {
+	width: 50px;
+	position: relative;
+	top: -80px;
+	left: 28%;
+	transition-duration: .5s;
+}
+.unblur {
+	filter: blur(0px);
+}
+.fade {
+	opacity: .2;
+}
+.newWrapper .quickLook {
+	opacity: .2;
+	transition-duration: .5s;
+}
+.newWrapper:hover .quickLook {
+	cursor: pointer;
+	opacity: 1;
 }
 footer {
 text-align: center;
@@ -188,19 +227,32 @@ margin-top: 80px;
 }
 .material-icons.md-55 {
 	font-size: 55px;
+	border: 3px solid black;
+	padding: 4px;
+	border-radius: 50px;
+}
+.material-icons:hover {
+	transform: scale(1.2);
 }
 									/*animations*/
 .animateOut {
 	animation-name: transformers;
 	animation-duration: .5s;
+	visibility: hidden;
 }
 @keyframes transformers {
 	0% {
 		transform: scale(1);
-		opacity: 1;
+		visibility: visible;
+	}
+	10% {
+		border-radius: 30%;
+	}
+	30% {
+		border-radius: 60%;
 	}
 	50% {
-		transform: rotate(180deg);
+		border-radius: 90%;
 	}
 	100% {
 		transform: scale(0);

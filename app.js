@@ -4,6 +4,9 @@ const wrapper = document.querySelector(".wrapper");
 const newDiv = document.getElementsByClassName("new");
 const cancelEdit = document.querySelector(".cancelEdit");
 const newWrapper = document.getElementsByClassName("newWrapper");
+const body = document.querySelector("body");
+const icons = document.getElementsByClassName("iconWrapper");
+const pwd = document.getElementsByClassName("pwd");
 // Add/Edit Modal
 const modal = document.querySelector(".modal");
 const modInputs = document.querySelectorAll(".modalWrapper input");
@@ -34,8 +37,7 @@ const hide = document.querySelector(".hide");
 const edit = document.querySelector(".edit");
 const deletebtn = document.querySelector(".delete");
 const cancel = document.querySelector(".modalCancel");
-const themes = document.querySelector(".themes");
-const submit = document.querySelector(".modalSubmit");
+const submit = document.querySelector(".modalSubmit"); 
 
 
 												// functions
@@ -101,24 +103,25 @@ function addClickEventEdit(className) {
       let topOff = node.item(i).offsetTop;
 // stop propagation for the edit button to not bubble up
       e.stopPropagation();
-// let selected = e.target.parentElement;
+// build editable div
       editWrapper.style.display = "flex";
       editUsr.value = innerUsr;
       editWeb.value = innerWeb;
       editPwd.value = innerPwd;
       editKey.value = innerKey;
       editId.value = innerId;
-
 // set position for modal to open in view
-      editWrapper.style.top = `${topOff - 140}px`;
+      editWrapper.style.top = `${topOff - 160}px`;
 // add animation classes
       newWrapper[i].classList.remove("animateBackIn");
+      newDiv[i].classList.remove("animateBackIn");
       newWrapper[i].classList.add("animateOut");
-      newWrapper[i].style.visibility = "hidden";
+      newDiv[i].classList.add("animateOut");
       node.item(i).style.display = "none";
-      editWrapper.classList.add("animateIn");
+      newWrapper[i].style.visibility = 'hidden';
+      newDiv[i].style.visibility = 'hidden';
       editWrapper.classList.remove("animateOut");
-
+      editWrapper.classList.add("animateIn");
 // submit edits button
       submitEdit.addEventListener("click", () => {
 // get api data
@@ -162,13 +165,11 @@ function addClickEventEdit(className) {
         editWrapper.classList.remove("animateIn");
         editWrapper.classList.add("animateOut");
         newWrapper[i].style.visibility = "visible";
+        newDiv[i].style.visibility = "visible";
         newWrapper[i].classList.remove("animateOut");
+        newDiv[i].classList.remove("animateOut");
         newWrapper[i].classList.add("animateBackIn");
-        // setTimeout(()=>{
-        // history.go(0);
-        // window.location.reload()
-        // 	displayAll();
-        // }, 2000)
+        newDiv[i].classList.add("animateBackIn");
       });
     });
   }
@@ -177,19 +178,36 @@ function addClickEventEdit(className) {
 // add click Event function
 function addClickEventNewWrapper(){
   let newWrapperDiv = document.getElementsByClassName("newWrapper");
-  for(var i = 0; i < newWrapperDiv.length; i++){
-    newWrapperDiv[i].addEventListener('click',()=>{
-      console.log(newWrapperDiv.item(i));
-      // if(newWrapper[i].classList == "viewing"){
-      //   newWrapper[i].classList.remove("viewing");
-      // } else {
-      //   newWrapper[i].classList.add("viewing");  
-      //   console.log("is viewing");
-      // }
+  for(let i = 0; i < newWrapperDiv.length; i++){
+    newWrapperDiv[i].addEventListener('click',(e)=>{
+      // console.log(e.target);
+      if(e.target !== 'new'){
+        e.stopPropagation();
+      } else{
+        newWrapperDiv[i].classList.toggle("viewing");
+        icons[i].classList.toggle("hidden");  
+      }
     })
   }
 }
 // end add click event function
+function quickLooks(){
+  const quickLook = document.getElementsByClassName("quickLook");
+  const newDiv = document.getElementsByClassName("new");
+  for(let i = 0; i < quickLook.length; i++){
+    quickLook[i].addEventListener('mouseover',(e)=>{
+      // e.stopPropagation();
+        newDiv[i].classList.toggle("unblur");
+        icons[i].classList.toggle("fade");
+        pwd[i].style.color = "black";
+    })
+    quickLook[i].addEventListener('mouseout', ()=>{
+      newDiv[i].classList.toggle("unblur");
+      icons[i].classList.toggle("fade");
+      pwd[i].style.color = "grey";
+    })
+  }
+}
 // validation check function
 function validationCheck(text) {
   // check to see if there is a value to search for and alert some text
@@ -259,13 +277,16 @@ function displayAll() {
         				<div class="data">
         					<p class=userh2>${entry.username}</p>
 							<p class=website><a href=${entry.website}>${entry.website}</a></p>
-							<p class=pwd>${entry.pwd}</p>
+							<p class="pwd">${entry.pwd}</p>
 							<p class=keyword>${entry.keyword}</p>
 							<p class=_id hidden="true">${entry._id}</p>
         				</div>
   					</div>
-  					<span class="edit"><i class="material-icons md-55">edit</i></span>
-  					<span class="delete"><i class="material-icons md-55">delete</i></span>
+  					<div class=iconWrapper>
+              <span class="quickLook"><i class="material-icons md-55">remove_red_eye</i></span>
+              <span class="edit"><i class="material-icons md-55">edit</i></span>
+    					<span class="delete"><i class="material-icons md-55">delete</i></span>
+            </div>
   				  </div>`;
         wrapper.insertAdjacentHTML("beforeend", div);
       });
@@ -279,6 +300,7 @@ function displayAll() {
     addClickEventNewWrapper();
     addClickEventEdit("edit");
     addClickEventDelete("delete");
+    quickLooks();
   }, 100);
 }
 // end displayAll function
@@ -297,25 +319,28 @@ function displayMatch(query) {
         // check for the input to match database entry
         if (checkValue(query, entry)) {
           let div = `<div class="newWrapper">
-          <span class="divHead">${entry.keyword}</span>
-        			<div class=new>
-        				<div class="labels">
-        					<h4>Username</h4>
-        					<h4>Website</h4>
-        					<h4>Password</h4>
-        					<h4>Keywords</h4>
-        				</div>
-        				<div class="data">
-        					<p class=userh2>${entry.username}</p>
-							<p class=website>${entry.website}</p>
-							<p class=pwd>${entry.pwd}</p>
-							<p class=keyword>${entry.keyword}</p>
-							<p class=_id hidden="true">${entry._id}</p>
-        				</div>
-  					</div>
-  					<button class="edit">Edit</button>
-  					<button class="delete">Delete</button>
-  				  </div>`;
+              <span class="divHead">${entry.keyword} <span class=divHeadSpan>(click to view)</span></span>
+              <div class=new>
+                <div class="labels">
+                  <h4>Username</h4>
+                  <h4>Website</h4>
+                  <h4>Password</h4>
+                  <h4>Keywords</h4>
+                </div>
+                <div class="data">
+                  <p class=userh2>${entry.username}</p>
+              <p class=website><a href=${entry.website}>${entry.website}</a></p>
+              <p class="pwd">${entry.pwd}</p>
+              <p class=keyword>${entry.keyword}</p>
+              <p class=_id hidden="true">${entry._id}</p>
+                </div>
+            </div>
+            <div class=iconWrapper>
+              <span class="quickLook"><i class="material-icons md-55">remove_red_eye</i></span>
+              <span class="edit"><i class="material-icons md-55">edit</i></span>
+              <span class="delete"><i class="material-icons md-55">delete</i></span>
+            </div>
+            </div>`;
           wrapper.insertAdjacentHTML("beforeend", div);
         }
       });
@@ -325,8 +350,10 @@ function displayMatch(query) {
     });
   // get node list and addEventListeners to each
   setTimeout(() => {
+    addClickEventNewWrapper();
     addClickEventDelete("delete");
     addClickEventEdit("edit");
+    quickLooks();
   }, 100);
 }
 // end displayMatch function
@@ -336,14 +363,8 @@ function displayMatch(query) {
 
 // input "button"
 input.addEventListener("keypress", e => {
-  console.log("keypress is working");
   displayMatch(input);
   divDelete(".newWrapper");
-  if (e.which == 13) {
-    validationCheck("You must enter a value to search for.");
-    displayMatch(input);
-    
-  }
 });
 // Search button
 btn.addEventListener("click", () => {
@@ -351,7 +372,6 @@ btn.addEventListener("click", () => {
   validationCheck("You must enter a value first.")
   displayMatch(input);
 });
-
 // show all entries/show all button
 show.addEventListener("click", () => {
   divDelete(".new");
