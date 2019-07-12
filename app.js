@@ -7,6 +7,7 @@ const newWrapper = document.getElementsByClassName("newWrapper");
 const body = document.querySelector("body");
 const icons = document.getElementsByClassName("iconWrapper");
 const pwd = document.getElementsByClassName("pwd");
+const quick = document.getElementsByClassName("quick");
 // Add/Edit Modal
 const modal = document.querySelector(".modal");
 const modInputs = document.querySelectorAll(".modalWrapper input");
@@ -206,6 +207,18 @@ function quickLooks(){
       icons[i].classList.toggle("fade");
       pwd[i].style.color = "grey";
     })
+    quickLook[i].addEventListener('click', ()=>{
+      newWrapper[i].classList.toggle("scale");
+      newDiv[i].classList.toggle("unblur");
+      icons[i].classList.toggle("hidden");
+      // change icons on click
+      if(quick[i].textContent === 'remove_red_eye'){
+        quick[i].textContent = 'arrow_back';
+      } else {
+        quick[i].textContent = 'remove_red_eye';
+      }
+      
+    })
   }
 }
 // validation check function
@@ -283,7 +296,7 @@ function displayAll() {
         				</div>
   					</div>
   					<div class=iconWrapper>
-              <span class="quickLook"><i class="material-icons md-55">remove_red_eye</i></span>
+              <span class="quickLook"><i class="material-icons md-55 quick">remove_red_eye</i></span>
               <span class="edit"><i class="material-icons md-55">edit</i></span>
     					<span class="delete"><i class="material-icons md-55">delete</i></span>
             </div>
