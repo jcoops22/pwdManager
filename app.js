@@ -8,6 +8,9 @@ const body = document.querySelector("body");
 const icons = document.getElementsByClassName("iconWrapper");
 const pwd = document.getElementsByClassName("pwd");
 const quick = document.getElementsByClassName("quick");
+const toolTip = document.getElementsByClassName("toolTip");
+const toolTipText = document.getElementsByClassName("toolTipText");
+
 // Add/Edit Modal
 const modal = document.querySelector(".modal");
 const modInputs = document.querySelectorAll(".modalWrapper input");
@@ -91,7 +94,6 @@ function addClickEventDelete(className) {
 // add click event to the Edit button
 function addClickEventEdit(className) {
   let node = document.getElementsByClassName(`${className}`);
-
  // add the click event per edit button instance
   for (let i = 0; i < node.length; i++) {
     node.item(i).addEventListener("click", e => {
@@ -112,17 +114,12 @@ function addClickEventEdit(className) {
       editKey.value = innerKey;
       editId.value = innerId;
 // set position for modal to open in view
-      editWrapper.style.top = `${topOff - 160}px`;
+      editWrapper.style.top = `${topOff - 260}px`;
 // add animation classes
-      newWrapper[i].classList.remove("animateBackIn");
-      newDiv[i].classList.remove("animateBackIn");
-      newWrapper[i].classList.add("animateOut");
-      newDiv[i].classList.add("animateOut");
-      node.item(i).style.display = "none";
-      newWrapper[i].style.visibility = 'hidden';
-      newDiv[i].style.visibility = 'hidden';
-      editWrapper.classList.remove("animateOut");
-      editWrapper.classList.add("animateIn");
+      newWrapper[i].classList.add("animated", "bounceOut");
+      editWrapper.classList.add("animated", "bounceInUp");
+      newWrapper[i].classList.remove("bounceIn");
+      editWrapper.classList.remove("fadeOutDownBig");
 // submit edits button
       submitEdit.addEventListener("click", () => {
 // get api data
@@ -161,16 +158,10 @@ function addClickEventEdit(className) {
       });
 // cancel button
       cancelEdit.addEventListener("click", e => {
-        node.item(i).style.display = "inline";
-        editWrapper.style.display = "none";
-        editWrapper.classList.remove("animateIn");
-        editWrapper.classList.add("animateOut");
-        newWrapper[i].style.visibility = "visible";
-        newDiv[i].style.visibility = "visible";
-        newWrapper[i].classList.remove("animateOut");
-        newDiv[i].classList.remove("animateOut");
-        newWrapper[i].classList.add("animateBackIn");
-        newDiv[i].classList.add("animateBackIn");
+        newWrapper[i].classList.remove("animated", "bounceOut");
+        editWrapper.classList.remove("animated", "bounceInUp");
+        newWrapper[i].classList.add("animated", "bounceIn" , "delay-1s");
+        editWrapper.classList.add("animated", "fadeOutDownBig");
       });
     });
   }
@@ -197,20 +188,22 @@ function quickLooks(){
   const newDiv = document.getElementsByClassName("new");
   for(let i = 0; i < quickLook.length; i++){
     quickLook[i].addEventListener('mouseover',(e)=>{
-      // e.stopPropagation();
         newDiv[i].classList.toggle("unblur");
         icons[i].classList.toggle("fade");
-        pwd[i].style.color = "black";
+        toolTip[i].style.visibility = "visible";
+        toolTipText[i].style.visibility = "visible";
     })
     quickLook[i].addEventListener('mouseout', ()=>{
       newDiv[i].classList.toggle("unblur");
       icons[i].classList.toggle("fade");
-      pwd[i].style.color = "grey";
+      // pwd[i].style.color = "grey";
+      toolTip[i].style.visibility = "hidden";
+      toolTipText[i].style.visibility = "hidden";
     })
     quickLook[i].addEventListener('click', ()=>{
       newWrapper[i].classList.toggle("scale");
       newDiv[i].classList.toggle("unblur");
-      icons[i].classList.toggle("hidden");
+      toolTip[i].style.visibility = "hidden";
       // change icons on click
       if(quick[i].textContent === 'remove_red_eye'){
         quick[i].textContent = 'arrow_back';
@@ -279,28 +272,31 @@ function displayAll() {
       res.data.forEach(entry => {
         // display results
         let div = `<div class="newWrapper">
-        			<span class="divHead">${entry.keyword} <span class=divHeadSpan>(click to view)</span></span>
-        			<div class=new>
-        				<div class="labels">
-        					<h4>Username</h4>
-        					<h4>Website</h4>
-        					<h4>Password</h4>
-        					<h4>Keywords</h4>
-        				</div>
-        				<div class="data">
-        					<p class=userh2>${entry.username}</p>
-							<p class=website><a href=${entry.website}>${entry.website}</a></p>
-							<p class="pwd">${entry.pwd}</p>
-							<p class=keyword>${entry.keyword}</p>
-							<p class=_id hidden="true">${entry._id}</p>
-        				</div>
-  					</div>
-  					<div class=iconWrapper>
+              <span class="divHead">${entry.keyword}</span>
+              <div class=new>
+                <div class="labels">
+                  <h4>Username</h4>
+                  <h4>Website</h4>
+                  <h4>Password</h4>
+                  <h4>Keywords</h4>
+                </div>
+                <div class="data">
+                  <p class=userh2>${entry.username}</p>
+              <p class=website><a href=${entry.website}>${entry.website}</a></p>
+              <p class="pwd">${entry.pwd}</p>
+              <p class=keyword>${entry.keyword}</p>
+              <p class=_id hidden="true">${entry._id}</p>
+                </div>
+            </div>
+            <div class=toolTip>
+                <span class=toolTipText>Click to zoom</span>
+              </div>
+            <div class=iconWrapper>
               <span class="quickLook"><i class="material-icons md-55 quick">remove_red_eye</i></span>
               <span class="edit"><i class="material-icons md-55">edit</i></span>
-    					<span class="delete"><i class="material-icons md-55">delete</i></span>
+              <span class="delete"><i class="material-icons md-55">delete</i></span>
             </div>
-  				  </div>`;
+            </div>`;
         wrapper.insertAdjacentHTML("beforeend", div);
       });
     })
@@ -332,7 +328,7 @@ function displayMatch(query) {
         // check for the input to match database entry
         if (checkValue(query, entry)) {
           let div = `<div class="newWrapper">
-              <span class="divHead">${entry.keyword} <span class=divHeadSpan>(click to view)</span></span>
+              <span class="divHead">${entry.keyword}</span>
               <div class=new>
                 <div class="labels">
                   <h4>Username</h4>
@@ -348,8 +344,11 @@ function displayMatch(query) {
               <p class=_id hidden="true">${entry._id}</p>
                 </div>
             </div>
+            <div class=toolTip>
+                <span class=toolTipText>Click to zoom</span>
+              </div>
             <div class=iconWrapper>
-              <span class="quickLook"><i class="material-icons md-55">remove_red_eye</i></span>
+              <span class="quickLook"><i class="material-icons md-55 quick">remove_red_eye</i></span>
               <span class="edit"><i class="material-icons md-55">edit</i></span>
               <span class="delete"><i class="material-icons md-55">delete</i></span>
             </div>
