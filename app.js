@@ -22,8 +22,9 @@ const modalKey = document.querySelector(".modalKey");
 const modalId = document.querySelector(".modalId");
 const modalh3 = document.querySelector(".modalh3");
 const dupModal = document.querySelector(".duplicateModal");
-const editWrapper = document.querySelector(".editWrapper");
 const submitEdit = document.querySelector(".submitEdit");
+const editWrapper = document.querySelector(".editWrapper");
+const divHead = document.getElementsByClassName("divHead");
 // Edit Inputs
 const editUsr = document.querySelector("#editUsr");
 const editWeb = document.querySelector("#editWeb");
@@ -42,6 +43,8 @@ const edit = document.querySelector(".edit");
 const deletebtn = document.querySelector(".delete");
 const cancel = document.querySelector(".modalCancel");
 const submit = document.querySelector(".modalSubmit"); 
+
+
 
 
 												// functions
@@ -103,7 +106,8 @@ function addClickEventEdit(className) {
       let innerPwd = newDiv[i].childNodes[3].childNodes[5].textContent;
       let innerKey = newDiv[i].childNodes[3].childNodes[7].textContent;
       let innerId = newDiv[i].childNodes[3].childNodes[9].textContent;
-      let topOff = node.item(i).offsetTop;
+      let topOff = window.pageYOffset + 170;
+      
 // stop propagation for the edit button to not bubble up
       e.stopPropagation();
 // build editable div
@@ -114,12 +118,12 @@ function addClickEventEdit(className) {
       editKey.value = innerKey;
       editId.value = innerId;
 // set position for modal to open in view
-      editWrapper.style.top = `${topOff - 260}px`;
+      editWrapper.style.top = `${topOff}px`;
 // add animation classes
+      newWrapper[i].classList.remove("bounceIn", "delay-1s");
+      editWrapper.classList.remove("bounceOutUp");
       newWrapper[i].classList.add("animated", "bounceOut");
       editWrapper.classList.add("animated", "bounceInUp");
-      newWrapper[i].classList.remove("bounceIn");
-      editWrapper.classList.remove("fadeOutDownBig");
 // submit edits button
       submitEdit.addEventListener("click", () => {
 // get api data
@@ -139,14 +143,15 @@ function addClickEventEdit(className) {
               axios
                 .put(url, val)
                 .then(() => {
-                  node.item(i).style.display = "inline-block";
-                  editWrapper.style.display = "none";
-                  editWrapper.classList.remove("animateIn");
-                  editWrapper.classList.add("animateOut");
-                  newWrapper[i].style.visibility = "visible";
-                  newWrapper[i].classList.remove("animateOut");
-                  newWrapper[i].classList.add("animateBackIn");
-                  displayAll();
+                  newWrapper[i].classList.remove("bounceOut");
+                  editWrapper.classList.remove("bounceInUp");
+                  newWrapper[i].classList.add("bounceIn" , "delay-1s");
+                  editWrapper.classList.add("bounceOutUp");
+                  setTimeout(()=>{
+                    editWrapper.style.display = "none";
+                    displayAll();
+                  }, 2100)
+                  
                   // window.location.reload();
                 })
                 .catch(err => {
@@ -158,10 +163,13 @@ function addClickEventEdit(className) {
       });
 // cancel button
       cancelEdit.addEventListener("click", e => {
-        newWrapper[i].classList.remove("animated", "bounceOut");
-        editWrapper.classList.remove("animated", "bounceInUp");
-        newWrapper[i].classList.add("animated", "bounceIn" , "delay-1s");
-        editWrapper.classList.add("animated", "fadeOutDownBig");
+        newWrapper[i].classList.remove("bounceOut");
+        editWrapper.classList.remove("bounceInUp");
+        newWrapper[i].classList.add("bounceIn" , "delay-1s");
+        editWrapper.classList.add("bounceOutUp");
+        setTimeout(()=>{
+          editWrapper.style.display = "none";
+        }, 2100)
       });
     });
   }
@@ -190,18 +198,19 @@ function quickLooks(){
     quickLook[i].addEventListener('mouseover',(e)=>{
         newDiv[i].classList.toggle("unblur");
         icons[i].classList.toggle("fade");
-        toolTip[i].style.visibility = "visible";
-        toolTipText[i].style.visibility = "visible";
+        // toolTip[i].style.visibility = "visible";
+        // toolTipText[i].style.visibility = "visible";
+        divHead[i].style.opacity = "0";
     })
     quickLook[i].addEventListener('mouseout', ()=>{
       newDiv[i].classList.toggle("unblur");
       icons[i].classList.toggle("fade");
-      // pwd[i].style.color = "grey";
+      divHead[i].style.opacity = "1";
       toolTip[i].style.visibility = "hidden";
       toolTipText[i].style.visibility = "hidden";
     })
     quickLook[i].addEventListener('click', ()=>{
-      newWrapper[i].classList.toggle("scale");
+      // newWrapper[i].classList.toggle("scale");
       newDiv[i].classList.toggle("unblur");
       toolTip[i].style.visibility = "hidden";
       // change icons on click
@@ -272,7 +281,7 @@ function displayAll() {
       res.data.forEach(entry => {
         // display results
         let div = `<div class="newWrapper">
-              <span class="divHead">${entry.keyword}</span>
+              <p class="divHead">${entry.keyword}</p>
               <div class=new>
                 <div class="labels">
                   <h4>Username</h4>
@@ -289,7 +298,7 @@ function displayAll() {
                 </div>
             </div>
             <div class=toolTip>
-                <span class=toolTipText>Click to zoom</span>
+                <span class=toolTipText>Unblur</span>
               </div>
             <div class=iconWrapper>
               <span class="quickLook"><i class="material-icons md-55 quick">remove_red_eye</i></span>
@@ -328,7 +337,7 @@ function displayMatch(query) {
         // check for the input to match database entry
         if (checkValue(query, entry)) {
           let div = `<div class="newWrapper">
-              <span class="divHead">${entry.keyword}</span>
+              <p class="divHead">${entry.keyword}</p>
               <div class=new>
                 <div class="labels">
                   <h4>Username</h4>
