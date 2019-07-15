@@ -6,11 +6,7 @@ const cancelEdit = document.querySelector(".cancelEdit");
 const newWrapper = document.getElementsByClassName("newWrapper");
 const body = document.querySelector("body");
 const icons = document.getElementsByClassName("iconWrapper");
-const pwd = document.getElementsByClassName("pwd");
 const quick = document.getElementsByClassName("quick");
-const toolTip = document.getElementsByClassName("toolTip");
-const toolTipText = document.getElementsByClassName("toolTipText");
-const website = document.getElementsByClassName("website");
 // Add/Edit Modal
 const modal = document.querySelector(".modal");
 const modInputs = document.querySelectorAll(".modalWrapper input");
@@ -44,7 +40,6 @@ const edit = document.querySelector(".edit");
 const deletebtn = document.querySelector(".delete");
 const cancel = document.querySelector(".modalCancel");
 const submit = document.querySelector(".modalSubmit"); 
-let dis = true;
 
 
 
@@ -86,7 +81,7 @@ function addClickEventDelete(className) {
         axios.delete(url);
         console.log(`you deleted the entry for the website ${innerWeb}`);
         deleteModal.style.display = 'none';
-        // avoid doing this
+        // workaround
         window.location.reload();
       })
       no.addEventListener('click', ()=>{
@@ -95,13 +90,13 @@ function addClickEventDelete(className) {
     });
   }
 }
-// add click event to each delete button
+// end add click event to each delete button
 // add click event to the Edit button
-function addClickEventEdit(className) {
-  let node = document.getElementsByClassName(`${className}`);
+function addClickEventEdit() {
+  let edit = document.getElementsByClassName("edit");
  // add the click event per edit button instance
-  for (let i = 0; i < node.length; i++) {
-    node.item(i).addEventListener("click", e => {
+  for (let i = 0; i < edit.length; i++) {
+    edit.item(i).addEventListener("click", e => {
 // define the input values to populate for editing
       let innerUsr = newDiv[i].childNodes[3].childNodes[1].textContent;
       let innerWeb = newDiv[i].childNodes[3].childNodes[3].textContent;
@@ -111,7 +106,7 @@ function addClickEventEdit(className) {
       let topOff = window.pageYOffset + 190;
       
 // stop propagation for the edit button to not bubble up
-      e.stopPropagation();
+      // e.stopPropagation();
 // build editable div
       editWrapper.style.display = "flex";
       editUsr.value = innerUsr;
@@ -171,32 +166,21 @@ function addClickEventEdit(className) {
         editWrapper.classList.add("bounceOutUp");
         setTimeout(()=>{
           editWrapper.style.display = "none";
+// without removing "animated" it will break adding the scale class
+          newWrapper[i].classList.remove("animated");
+          editWrapper.classList.remove("animated");
         }, 2100)
       });
     });
   }
 }
 // end click event to the edit button function
-// add click Event function
-function addClickEventNewWrapper(){
-  let newWrapperDiv = document.getElementsByClassName("newWrapper");
-  for(let i = 0; i < newWrapperDiv.length; i++){
-    newWrapperDiv[i].addEventListener('click',(e)=>{
-      // console.log(e.target);
-      if(e.target !== 'new'){
-        e.stopPropagation();
-      } else{
-        newWrapperDiv[i].classList.toggle("viewing");
-        icons[i].classList.toggle("hidden");  
-      }
-    })
-  }
-}
-// end add click event function
 function quickLooks(){
   const quickLook = document.getElementsByClassName("quickLook");
   const newDiv = document.getElementsByClassName("new");
+// get all quicklook icons
   for(let i = 0; i < quickLook.length; i++){
+// add event listeners to each
     quickLook[i].addEventListener('mouseover',(e)=>{
         newDiv[i].classList.toggle("unblur");
         icons[i].classList.toggle("fade");
@@ -217,22 +201,14 @@ function quickLooks(){
       } else {
         quick[i].textContent = 'remove_red_eye';
       }
-      
     })
   }
 }
 // end quickLook functionality
-// addEvents to buttons function
-// function animateStuff(btnClass, aniClass){
-//   const btn = document.querySelector(`.${btnClass}`);
-//   const ani = `${aniClass}`;
-// }
-// end addEvnets to buttons function
 // validation check function
 function validationCheck(text) {
   // check to see if there is a value to search for and alert some text
   if (!input.value) {
-    // could turn this in to a modal in refactoring
     alert(`${text}`);
     return;
   }
@@ -247,23 +223,11 @@ function divDelete(className) {
   });
 }
 // end duplicate div delete
-// modalShowandHide function
-function modalShowandHide(element) {
-  element.style.visibility = "hidden";
-  console.log("timeout worked");
-}
-// end modalShowandHide
-// clear input
-function clearInput() {
-  if (input.value != "") {
-    input.value = "";
-  }
-}
-// end clear input function
 // checkValue function
 function checkValue(val, data) {
   // make the keywords an array (for the index of check)
   let keyword = data.keyword.split(" ");
+  console.log("checking value");
   return (
     data.username === val.value ||
     keyword.indexOf(val.value) > 0 ||
@@ -271,7 +235,6 @@ function checkValue(val, data) {
     data.pwd === val.value ||
     data._id === val.value
   );
-  console.log("check value ran");
 }
 // end checkValue function
 
@@ -317,8 +280,7 @@ function displayAll() {
     });
   // get node list and addEventListeners to each
   setTimeout(() => {
-    addClickEventNewWrapper();
-    addClickEventEdit("edit");
+    addClickEventEdit();
     addClickEventDelete("delete");
     quickLooks();
   }, 100);
@@ -370,7 +332,6 @@ function displayMatch(query) {
     });
   // get node list and addEventListeners to each
   setTimeout(() => {
-    addClickEventNewWrapper();
     addClickEventDelete("delete");
     addClickEventEdit("edit");
     quickLooks();
@@ -381,31 +342,32 @@ function displayMatch(query) {
 
 											// Buttons
 
-// input "button"
+// input for search
 input.addEventListener("keypress", e => {
   displayMatch(input);
   divDelete(".newWrapper");
 });
 // Search button
 btn.addEventListener("click", () => {
-  divDelete(".new");
+  divDelete(".newWrapper");
   validationCheck("You must enter a value first.")
   displayMatch(input);
 });
 // show all entries/show all button
 show.addEventListener("click", () => {
-  divDelete(".new");
+  divDelete(".newWrapper");
   displayAll();
 });
 // hide all entries
 hide.addEventListener("click", () => {
   divDelete(".newWrapper");
 });
-// click off to close add modal
+// click off to close "add" modal
 clickOfftoClose(".modalWrapper");
 
 // add button
 add.addEventListener("click", () => {
+  divDelete(".newWrapper");
 // change header
   modalh3.textContent = "Add Your Account Here!";
 // show modal to enter new information
@@ -444,8 +406,9 @@ add.addEventListener("click", () => {
 // show confirmation modal
     setTimeout(() => {
       divDelete(".confDiv");
+      // workaround
       window.location.reload();
-    }, 4000);
+    }, 5000);
   });
   cancel.addEventListener("click", () => {
     modalWrapper.style.display = "none";

@@ -2,13 +2,10 @@ const express = require('express'),
 	  mongoose = require('mongoose'),
  	  bodyParser = require('body-parser'),
  	  path = require('path');
-
-
+ 	  
 const app = express();
 const port = process.env.PORT || 4000;
 const db = require('./models/entry.js');
-
-// const MongoClient = require('mongodb').MongoClient;
 
 mongoose.Promise = Promise;
 mongoose.connect('mongodb://localhost/pwd-api', {useNewUrlParser: true});
