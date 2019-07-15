@@ -10,7 +10,7 @@ const pwd = document.getElementsByClassName("pwd");
 const quick = document.getElementsByClassName("quick");
 const toolTip = document.getElementsByClassName("toolTip");
 const toolTipText = document.getElementsByClassName("toolTipText");
-
+const website = document.getElementsByClassName("website");
 // Add/Edit Modal
 const modal = document.querySelector(".modal");
 const modInputs = document.querySelectorAll(".modalWrapper input");
@@ -34,8 +34,9 @@ const editKey = document.querySelector("#editKey");
 const deleteModal = document.querySelector(".deleteModal");
 // Buttons
 const btn = document.querySelector(".searchbtn");
-const input = document.querySelector("input");
+const input = document.querySelector(".searchInput");
 const remove = document.querySelector(".remove");
+const btnDiv = document.querySelector(".btnDiv").children;
 const add = document.querySelector(".add");
 const show = document.querySelector(".show");
 const hide = document.querySelector(".hide");
@@ -43,6 +44,7 @@ const edit = document.querySelector(".edit");
 const deletebtn = document.querySelector(".delete");
 const cancel = document.querySelector(".modalCancel");
 const submit = document.querySelector(".modalSubmit"); 
+let dis = true;
 
 
 
@@ -106,7 +108,7 @@ function addClickEventEdit(className) {
       let innerPwd = newDiv[i].childNodes[3].childNodes[5].textContent;
       let innerKey = newDiv[i].childNodes[3].childNodes[7].textContent;
       let innerId = newDiv[i].childNodes[3].childNodes[9].textContent;
-      let topOff = window.pageYOffset + 170;
+      let topOff = window.pageYOffset + 190;
       
 // stop propagation for the edit button to not bubble up
       e.stopPropagation();
@@ -198,21 +200,17 @@ function quickLooks(){
     quickLook[i].addEventListener('mouseover',(e)=>{
         newDiv[i].classList.toggle("unblur");
         icons[i].classList.toggle("fade");
-        // toolTip[i].style.visibility = "visible";
-        // toolTipText[i].style.visibility = "visible";
         divHead[i].style.opacity = "0";
     })
     quickLook[i].addEventListener('mouseout', ()=>{
       newDiv[i].classList.toggle("unblur");
       icons[i].classList.toggle("fade");
       divHead[i].style.opacity = "1";
-      toolTip[i].style.visibility = "hidden";
-      toolTipText[i].style.visibility = "hidden";
     })
     quickLook[i].addEventListener('click', ()=>{
-      // newWrapper[i].classList.toggle("scale");
-      newDiv[i].classList.toggle("unblur");
-      toolTip[i].style.visibility = "hidden";
+      newWrapper[i].classList.toggle("scale");
+      divHead[i].classList.toggle("hidden");
+      newDiv[i].classList.toggle("color");
       // change icons on click
       if(quick[i].textContent === 'remove_red_eye'){
         quick[i].textContent = 'arrow_back';
@@ -223,6 +221,13 @@ function quickLooks(){
     })
   }
 }
+// end quickLook functionality
+// addEvents to buttons function
+// function animateStuff(btnClass, aniClass){
+//   const btn = document.querySelector(`.${btnClass}`);
+//   const ani = `${aniClass}`;
+// }
+// end addEvnets to buttons function
 // validation check function
 function validationCheck(text) {
   // check to see if there is a value to search for and alert some text
@@ -297,9 +302,6 @@ function displayAll() {
               <p class=_id hidden="true">${entry._id}</p>
                 </div>
             </div>
-            <div class=toolTip>
-                <span class=toolTipText>Unblur</span>
-              </div>
             <div class=iconWrapper>
               <span class="quickLook"><i class="material-icons md-55 quick">remove_red_eye</i></span>
               <span class="edit"><i class="material-icons md-55">edit</i></span>
@@ -353,9 +355,6 @@ function displayMatch(query) {
               <p class=_id hidden="true">${entry._id}</p>
                 </div>
             </div>
-            <div class=toolTip>
-                <span class=toolTipText>Click to zoom</span>
-              </div>
             <div class=iconWrapper>
               <span class="quickLook"><i class="material-icons md-55 quick">remove_red_eye</i></span>
               <span class="edit"><i class="material-icons md-55">edit</i></span>
@@ -398,6 +397,7 @@ show.addEventListener("click", () => {
   divDelete(".new");
   displayAll();
 });
+// hide all entries
 hide.addEventListener("click", () => {
   divDelete(".newWrapper");
 });

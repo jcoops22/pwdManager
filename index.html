@@ -14,24 +14,25 @@
   <link href="https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap" rel="stylesheet">
 <!-- animate css -->
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
-
 </head>
 
 <body>
   <div class="container">
-    <h1> <span>The </span>Pesky Passwords Proprietor <span class="icon"><span id="spanP">P</span><span id="span3">3</span></span>
-    </h1>
+    <!-- <span id="spanP">P</span><span id="span3">3</span> -->
+    <div class="headerDiv">
+      <h1> <span>The </span>Pesky Passwords Proprietor</h1> 
+        
+    </div>
+    <!-- <span class="icon"></span> -->
     <h4>An inherently bad idea.</h4>
     <!-- wrapper for entries to display -->
     <div class="wrapper">
       <div class="inputDiv">
-        <input type="text" name="search" placeholder="Search by keyword, username, password, or website!">
+        <input class="searchInput" type="text" name="search" placeholder="Search by keyword, username, password, or website!">
+        <button class="material-icons searchbtn">search</button>
       </div>
       <div class="btnDiv">
-        <button class="searchbtn">Search</button>
         <button class="add">Add</button>
-        <!-- show all button -->
-        <!-- <a href="http://localhost:4000/api"><button class="all">Show All</button></a>	 -->
         <button class="show">Show All</button>
         <button class="hide">Hide All</button>
       </div>
@@ -78,7 +79,7 @@
 	</div>
 	<footer>
 		<div>
-			<h6>Created By Jonathan Cooper</h6>
+			<h6>Created By Jonathan Cooper  2019</h6>
 		</div>
 	</footer>
 	<script type="text/javascript" src="app.js"></script>

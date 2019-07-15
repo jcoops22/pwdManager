@@ -3,14 +3,13 @@
 	font-family: 'B612 Mono', monospace;
 }
 body {
-	background: #666A86;
+	background: linear-gradient(270deg, rgba(102,106,134,1) 4%, rgba(132,164,160,1) 50%, rgba(102,106,134,1) 90%);
 	margin: 0;
 	height: 100%;
-	/*color: black;*/
 	color: #E8DDB5;
 }
 h1 {
-	display: flex;
+	display: inline;
 	align-self: center;
 	justify-content: center;
 	font-size: 60px;
@@ -40,18 +39,10 @@ a {
 	border: 1px solid black;
 	border-radius: 3px;
 	padding: 20px;
-	margin-left: 15px;
 	box-shadow: 2px 5px 10px;
 	background-color: black;
 	color: white;
-}
-.iconWrapper {
-	transition-duration: .5s;
-}
-input {
-	color: #1f3e70;
-	
-	height: 25px;
+	margin: 10px;
 }
 .wrapper {
 	display: flex;
@@ -63,6 +54,25 @@ input {
 	align-items: center;
 	height: auto;
 }
+.inputDiv{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	margin-top: 20px;
+	padding-top: 15px;
+}
+.searchInput {
+	color: #1f3e70;
+	height: 35px;
+	width: 75vw;
+	max-width: 600px;
+	font-size: 18px;
+
+}
+.searchbtn {
+	height: 35px;
+	margin-left: 12px;
+}
 .btnDiv {
 	display: flex;
 	align-items: center;
@@ -70,206 +80,28 @@ input {
 }
 .btnDiv button {
 	margin-top: 20px;
-	width: 110px;
+	width: 175px;
+	height: 45px;
+	border-radius: 5px;
+	font-size: 15px;
+	border: 3px solid #F2D5F8;
 }
-.inputDiv{
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	margin-top: 20px;
-	padding-top: 15px;
+.btnDiv button:hover {
+	background-color: #F1DEDE;
+	transform: scale(1.05);
+	transition-duration: .2s;
 }
-.inputDiv input {
-	width: 28vw;
+.add {
+	background-color: #EAC8CA;
 }
-.newWrapper {
-	border: 3px solid #E8DDB5;
-	margin: 60px 0;
-	padding: 0px;
-	border-radius: 15px;
-	background: #92B6B1;
-	transition-duration: .5s;
+.show { 
+	background-color: #BFABCB;
 }
-.newWrapper:hover {
-	background-color: #B2C9AB;
-	border: 3px solid black;
-}
-.newWrapper:hover .material-icons {
-	background-color: #788AA3;
-	border: 3px solid black;
-}
-.newWrapper .edit {
-	opacity: .2;
-	transition-duration: .5s;
-}
-.newWrapper:hover .edit {
-	cursor: pointer;
-	opacity: 1;
-}
-.newWrapper:hover .divHead {
-	transform: translate(0px, 60px);
-	padding: 0;
-	transition-duration: .5s;
-	/*font-family: 'Roboto Mono', monospace;*/
-	color: black;
-}
-.divHead {
-	margin-left: 12px;
-	transition-duration: .5s;
-	margin-top: -38px;
-	padding: 0;
-	transform: translate(0px, 60px);
-	position: relative;
-	left: 20%;
-	top: 40px;
-	color: #666A86;
-	font-size: 20px;
-}
-.new {
-	display: flex;
-	flex-direction: row;
-	flex-wrap: nowrap;
-	align-items: center;
-	justify-content: space-around;
-	width: 60vw;
-	/*fix for the "edit" button relatively positioned*/
-	margin-bottom: -22px;
-	filter: blur(8px);
-}
-.edit {
-	width: 50px;
-	position: relative;
-	top: -15px;
-	left: 39%;
-	transition-duration: .5s;
-}
-.editWrapper {
-	display: none;
-	flex-direction: column;
-	flex-wrap: nowrap;
-	align-items: center;
-	margin: 15px 10px;
-	padding: 10px;
-	position: absolute;
-	left: 33.5vw;
-	width: auto;
-	border: 3px solid black;
-	animation-delay: .5s;
-	background-color: #B2C9AB;
-}
-.editWrapper input {
-	width: 27vw;
-	height: 33px;
-}
-.editModal {
-	display: flex;
-}
-.editModal button {
-	margin-top: 10px;
-}
-.submitEdit {
-	margin-left: auto;
-}
-.editModal input {
-	display: block;
-}
-.editModal label {
-	display: inline;
-}
-
-.newWrapper .delete {
-	opacity: .2;
-	transition-duration: .5s;
-}
-.newWrapper:hover .delete {
-	cursor: pointer;
-	opacity: 1;
-}
-.delete {
-	/*width: 55px;*/
-	position: relative;
-	top: -15px;
-	left: 53%;
-	background-color: transparent;
-	border: none;
-	transition-duration: .5s;
-}
-.deleteModal {
-	display: none;
-	background-color: blue;
-}
-.quickLook {
-	width: 50px;
-	position: relative;
-	top: -15px;
-	left: 24%;
-	transition-duration: .5s;
-}
-.toolTip {
-	display: inline;
-	visibility: hidden;
-	position: relative;
-	top: -1.3rem;
-	left: 23%;
-	z-index: 1;
-	background-color: black;
-	opacity: .8;
-	animation-name: fadeIn;
-	animation-delay: 3s;
-}
-.toolTipText {
-	color: white;
-}
-.newWrapper .quickLook {
-	opacity: .2;
-	transition-duration: .5s;
-}
-.newWrapper:hover .quickLook {
-	cursor: pointer;
-	opacity: 1;
-}
-footer {
-text-align: center;
-margin-top: 80px;
-color: #E8DDB5;
-}
-.material-icons.md-55 {
-	font-size: 35px;
-	border: 3px solid #666A86;
-	padding: 4px;
-	border-radius: 50px;
-	color: #B2C9AB;
-}
-.material-icons:hover {
-	transform: scale(1.2);
-}
-
-									/*JS adding classes*/
 .hide {
-	margin-bottom: 25px;	
+	background-color: #C5D5E4;
 }
-.hidden {
-	visibility: hidden;
-	opacity: 0;
-}
-.quick {
-	opacity: 7;
-	visibility: visible;
-}
-.unblur {
-	filter: blur(0px);
-}
-.fade {
-	opacity: .2;
-}
-.viewing {
-	transform: scale(1.3);
-}
-.scale {
-	transform: scale(1.5);
-	filter: blur(0);
-}
-									/*end adding classes*/
+
+											/*add button*/
 .modalWrapper {
 	position: fixed;
 	top: 0;
@@ -314,14 +146,168 @@ color: #E8DDB5;
 .modalCancel {
 	margin-left: 20px;
 }
-.confDiv {
-	position: relative;
-	top: -100px;
-	left: 0;
-	background-color: lightgrey;
-	border: 2px solid black;
-	padding: 15px;
+										/*results divs*/
+.newWrapper {
+	border: 3px solid #E8DDB5;
+	margin: 60px 0;
+	padding: 0px;
+	border-radius: 15px;
+	background: #92B6B1;
+	transition-duration: .5s;
+	min-width: 50vw;
+	max-width: 80vw;
 }
+.newWrapper .quickLook {
+	opacity: .2;
+	transition-duration: .5s;
+}
+.newWrapper .edit {
+	opacity: .2;
+	transition-duration: .5s;
+}
+.newWrapper .delete {
+	opacity: .2;
+	transition-duration: .5s;
+}
+.newWrapper:hover {
+	background-color: #B2C9AB;
+	border: 3px solid black;
+}
+.newWrapper:hover .divHead {
+	transform: translate(0px, 60px);
+	padding: 0;
+	transition-duration: .5s;
+/*font-family: 'Roboto Mono', monospace;*/
+	color: black;
+}
+.newWrapper:hover .material-icons {
+	background-color: #788AA3;
+	border: 3px solid black;
+}
+.newWrapper:hover .quickLook {
+	cursor: pointer;
+	opacity: 1;
+}
+.newWrapper:hover .edit {
+	cursor: pointer;
+	opacity: 1;
+}
+.newWrapper:hover .delete {
+	cursor: pointer;
+	opacity: 1;
+}
+.divHead {
+	margin-left: 12px;
+	transition-duration: .5s;
+	margin-top: -38px;
+	padding: 10px;
+	/*transform: translate(0px, 60px);*/
+	position: relative;
+	left: 0%;
+	top: 40px;
+	color: #666A86;
+	font-size: 20px;
+	text-align: center;
+}
+.new {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	align-items: center;
+	justify-content: space-around;
+/*fix for the "edit" button relatively positioned*/
+	margin-bottom: -22px;
+	filter: blur(8px);
+}
+.data {
+	margin: 15px;
+}
+.labels {
+	margin: 15px;
+}
+												/*icons div*/
+.iconWrapper {
+	transition-duration: .5s;
+	display: flex;
+	justify-content: space-around;
+	margin-bottom: 10px;
+}
+.iconsWrapper i {
+	display: flex;
+	transition-duration: .5s;
+	width: 50px;
+}
+.material-icons.md-55 {
+	font-size: 35px;
+	border: 3px solid #E8DDB5;
+	padding: 4px;
+	border-radius: 50px;
+	color: #B2C9AB;
+}
+.material-icons:hover {
+	transform: scale(1.2);
+}
+
+
+											/*edit modal*/
+
+.editWrapper {
+	display: none;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	align-items: center;
+	margin: 15px 10px;
+	padding: 10px;
+	position: absolute;
+	left: 20vw;
+	width: 60vw;
+	border: 3px solid black;
+	animation-delay: .5s;
+	background-color: #B2C9AB;
+}
+.editWrapper input {
+	
+	height: auto;
+}
+.editModal {
+	display: flex;
+	justify-content: center;
+	width: 20rem;
+}
+.editModal button {
+	margin-top: 10px;
+}
+.editModal input {
+	display: block;
+}
+.editModal label {
+	display: block;
+}
+.submitEdit {
+	margin-left: auto;
+}
+										/*delete modal*/
+.deleteModal {
+	display: none;
+	background-color: blue;
+}
+											/*tool tips*/
+.toolTip {
+	display: inline;
+	visibility: hidden;
+	position: relative;
+	top: -1.3rem;
+	left: 23%;
+	z-index: 1;
+	background-color: black;
+	opacity: .8;
+	animation-name: fadeIn;
+	animation-delay: 3s;
+}
+.toolTipText {
+	color: white;
+}
+										/*delete modals*/
 .deleteModal {
 	background-color: rgb(100, 100, 100);
 	vertical-align: middle;
@@ -334,3 +320,78 @@ color: #E8DDB5;
 	left: 580px;
 	color: white;
 }
+.confDiv {
+	position: relative;
+	top: -100px;
+	left: 0;
+	background-color: lightgrey;
+	border: 2px solid black;
+	padding: 15px;
+}
+footer {
+text-align: center;
+margin-top: 80px;
+color: #E8DDB5;
+}
+
+									/*JS adding classes*/
+.hide {
+	margin-bottom: 25px;	
+}
+.hidden {
+	visibility: hidden;
+	opacity: 0;
+}
+.quick {
+	opacity: 7;
+	visibility: visible;
+}
+.unblur {
+	filter: blur(0px);
+}
+.fade {
+	opacity: .2;
+}
+.viewing {
+	transform: scale(1.3);
+}
+.scale {
+	transform: scale(1.1);
+	filter: blur(0);
+}
+.color {
+	color: black;
+}
+									/*end adding classes*/
+
+
+									
+									/*media queries*/
+
+@media screen and (min-width: 400px){
+	.container {
+		text-align: center;
+	}
+	.headerDiv {
+		margin-top: 60px;
+	}
+	h1 {
+		font-size: 40px;
+		padding-top: 60px;
+	}
+	.btnDiv {
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: space-around;
+	}
+	.btnDiv button {
+		flex-basis: 100px;
+	}
+	.hide {
+		margin-bottom: 0;
+	}
+}
+
+
+
+
