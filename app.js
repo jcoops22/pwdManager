@@ -42,6 +42,10 @@ const cancel = document.querySelector(".modalCancel");
 const submit = document.querySelector(".modalSubmit");
 const generate = document.querySelector(".modalGenerate");
 let chars = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
+let numbers = [1,2,3,4,5,6,7,8,9,0];
+let specChars = ["!","@","#","$","%","^","&","*"];
+let useSpecChars = true;
+let useNumbers = true;
 
 
 
@@ -344,13 +348,43 @@ function displayMatch(query) {
 function pwdGenerator(charset, length){
   let array = [];
   let times = 0;
-  // do math.random times the number of the length
-  while(times < length){
-   array.push(charset[Math.floor(Math.random() * charset.length)]);
-   times ++;
-  }
-  console.log(array);
-  return array;
+console.log(useSpecChars, useNumbers);
+  if(useSpecChars && useNumbers){
+    console.log("use both");
+    let newArr = charset.concat(numbers).concat(specChars);
+    console.log(newArr);
+    while(times < length){
+     array.push(newArr[Math.floor(Math.random() * newArr.length)]);
+     times ++;
+    }
+    console.log(array);
+    return array;
+  } else if(useSpecChars && !useNumbers){
+    console.log("only using spec chars");
+    let newArr = charset.concat(specChars);
+    while(times < length){
+     array.push(newArr[Math.floor(Math.random() * newArr.length)]);
+     times ++;
+    }
+    console.log(array);
+    return array;
+  } else if(useNumbers && !useSpecChars){
+    let newArr = charset.concat(numbers);
+    while(times < length){
+     array.push(newArr[Math.floor(Math.random() * newArr.length)]);
+     times ++;
+    }
+    console.log(array);
+    return array;
+  } else {
+    // do math.random times the number of the length
+    while(times < length){
+     array.push(charset[Math.floor(Math.random() * charset.length)]);
+     times ++;
+    }
+    console.log(array);
+    return array;  
+} 
 }
 // end generator function
 											// end functions
@@ -433,12 +467,20 @@ generate.addEventListener('click', ()=>{
   let generateDiv = 
   `<div class="genDiv">
     <h4>Pwd Generator</h4>
-    <span class=close>X</span>
+    <i class="material-icons close">close</i>
       <hr>
-      <label>How long?</label>
+      <label>Length</label>
       <input class="length" type="number" min="1" max="20">
-      <label>Password</label>
-      <input class="result" disabled=true type="text">
+      <br>
+      <input class="specChar" type="checkbox" checked="true">
+      <span class="specText">Use Special Characters?</span>
+      <br>
+      <input id="secCheck"class="numCheck" type="checkbox" checked="true">
+      <span class="specText">Use numbers?</span>
+      <br>
+      <label>password:</label>
+      <input class="result" disabled="true" type="text">
+      <br>
       <button class="getPwd">Generate!</button>
   </div>
   `
@@ -449,13 +491,31 @@ generate.addEventListener('click', ()=>{
   let result = document.querySelector(".result");
   let genDiv = document.querySelector(".genDiv");
   let close = document.querySelector(".close");
-
+  let numCheck = document.querySelector(".numCheck");
+  let specChar = document.querySelector(".specChar");
   close.addEventListener('click', ()=>{
     divDelete(".genDiv");
     // long.value = "";
     // getPwd.value = "";
   })
-    
+  specChar.addEventListener("change", ()=>{
+    if(specChar.checked){
+      useSpecChars = true;
+      console.log("use them");
+    } else {
+      useSpecChars = false;
+      console.log("dont use them");
+    }
+  })
+  numCheck.addEventListener("change", ()=>{
+    if(numCheck.checked){
+      useNumbers = true;
+      console.log("use them");
+    } else {
+      useNumbers = false;
+      console.log("dont use them");
+    }
+  })
   
   getPwd.addEventListener('click', ()=>{
     // console.log(long.value);
