@@ -132,6 +132,9 @@ a {
 	background-color: rgb(100, 100, 100);
 	margin: 60px auto 0;
 }
+.modal h3{
+	margin: 3px;
+}
 .modal input {
 	margin-top: 13px;
 	height: 30px;
@@ -153,6 +156,37 @@ a {
 }
 .modalCancel {
 	margin-left: 20px;
+}
+.genDiv {
+	border-top: 1px solid white;
+	padding-top: 5px;
+}
+.genDiv h4 {
+	display: inline;
+	margin-left: 73px;
+	text-align: center;
+	padding: 0 4px;
+	width: 100%;
+	background-color: white;
+}
+.genDiv span {
+	position: relative;
+	left: 3%;
+}
+.genDiv hr {
+	width: 80%;
+	opacity: .7;
+	margin-bottom: 3px;
+}
+.genDiv label {
+	display: inline;
+	padding: 0 0 3px 0;
+}
+.genDiv input {
+	margin-top: 0;
+}
+.genDiv .getPwd {
+	margin-left: 100px;
 }
 										/*results divs*/
 .newWrapper {

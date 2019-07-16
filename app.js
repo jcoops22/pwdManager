@@ -431,22 +431,31 @@ add.addEventListener("click", () => {
 });
 generate.addEventListener('click', ()=>{
   let generateDiv = 
-  `<div>
-    <h3>Pwd Generator</h3>
+  `<div class="genDiv">
+    <h4>Pwd Generator</h4>
+    <span class=close>X</span>
+      <hr>
       <label>How long?</label>
-      <input class="length" type="number">
+      <input class="length" type="number" min="1" max="20">
       <label>Password</label>
       <input class="result" disabled=true type="text">
       <button class="getPwd">Generate!</button>
   </div>
   `
-  modalWrapper.insertAdjacentHTML("beforeend", generateDiv);
-    // setTimeout(()=>{
+  modal.insertAdjacentHTML("beforeend", generateDiv);
+    
   let getPwd = document.querySelector(".getPwd");
   let long = document.querySelector(".length");
   let result = document.querySelector(".result");
-    // console.log(getPwd);
-    // },100)
+  let genDiv = document.querySelector(".genDiv");
+  let close = document.querySelector(".close");
+
+  close.addEventListener('click', ()=>{
+    divDelete(".genDiv");
+    // long.value = "";
+    // getPwd.value = "";
+  })
+    
   
   getPwd.addEventListener('click', ()=>{
     // console.log(long.value);
