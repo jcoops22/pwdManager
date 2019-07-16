@@ -39,7 +39,9 @@ const hide = document.querySelector(".hide");
 const edit = document.querySelector(".edit");
 const deletebtn = document.querySelector(".delete");
 const cancel = document.querySelector(".modalCancel");
-const submit = document.querySelector(".modalSubmit"); 
+const submit = document.querySelector(".modalSubmit");
+const generate = document.querySelector(".modalGenerate");
+let chars = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
 
 
 
@@ -338,6 +340,19 @@ function displayMatch(query) {
   }, 100);
 }
 // end displayMatch function
+// pwdGenerator function
+function pwdGenerator(charset, length){
+  let array = [];
+  let times = 0;
+  // do math.random times the number of the length
+  while(times < length){
+   array.push(charset[Math.floor(Math.random() * charset.length)]);
+   times ++;
+  }
+  console.log(array);
+  return array;
+}
+// end generator function
 											// end functions
 
 											// Buttons
@@ -414,4 +429,43 @@ add.addEventListener("click", () => {
     modalWrapper.style.display = "none";
   });
 });
+generate.addEventListener('click', ()=>{
+  let generateDiv = 
+  `<div>
+    <h3>Pwd Generator</h3>
+      <label>How long?</label>
+      <input class="length" type="number">
+      <label>Password</label>
+      <input class="result" disabled=true type="text">
+      <button class="getPwd">Generate!</button>
+  </div>
+  `
+  modalWrapper.insertAdjacentHTML("beforeend", generateDiv);
+    // setTimeout(()=>{
+  let getPwd = document.querySelector(".getPwd");
+  let long = document.querySelector(".length");
+  let result = document.querySelector(".result");
+    // console.log(getPwd);
+    // },100)
+  
+  getPwd.addEventListener('click', ()=>{
+    // console.log(long.value);
+    // console.log(chars);
+   result.value = pwdGenerator(chars,long.value).join("");
+
+  })
+})
+// pwdGenerator(3);
+
+
+
+
+
+
+
+
+
+
+
+
 
